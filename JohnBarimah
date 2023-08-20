@@ -1,0 +1,398 @@
+Imports System.Numerics
+
+Public Class Form1
+
+    Dim firstvalue As Double
+    Dim secondvalue As Double
+    Dim op As String
+
+    ' Constant prices
+    Dim mcSubTotal As Double
+    Dim mcTotal As Double
+    Const TelevisionPrice = 500
+    Const MixerPrice = 100
+    Const CameraPrice = 300
+    Const TaxRate = 0.1
+    Const DeliveryPrice = 20
+    Const MileageRate = 0.5
+
+
+
+    Private Sub Label12_Click(sender As Object, e As EventArgs) Handles Label12.Click
+
+    End Sub
+
+    Private Sub btnReset_Click(sender As Object, e As EventArgs) Handles btnReset.Click
+        txtTel.Text = ""
+        txtMix.Text = ""
+        txtCam.Text = ""
+        txtHD.Text = ""
+        txtMileage.Text = ""
+        txtSubTotal.Text = ""
+        txtTax.Text = ""
+        txtReceipt.Text = ""
+        txtTotalAmount.Text = ""
+        txtTCOD.Text = ""
+        txtTCOM.Text = ""
+        txtTCOI.Text = ""
+        chkTel.Checked = False
+        chkMix.Checked = False
+        chkCam.Checked = False
+        chkTax.Checked = False
+    End Sub
+
+    Private Sub btn1_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub btn2_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub btn3_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub btn4_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub btn5_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub btn6_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub btn7_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub btn8_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub btn9_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub btn0_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub btnDot_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub btnAdd_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub btnSub_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub btnDiv_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub btnMulti_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub btnEqual_Click(sender As Object, e As EventArgs) Handles btnEqual.Click
+
+        If op = "+" Then
+            lblDis2.Text = Val(lblDis.Text) + Val(lblDis2.Text)
+
+        ElseIf op = "-" Then
+            lblDis2.Text = Val(lblDis.Text) - Val(lblDis2.Text)
+
+        ElseIf op = "*" Then
+            lblDis2.Text = Val(lblDis.Text) * Val(lblDis2.Text)
+
+        ElseIf op = "/" Then
+            lblDis2.Text = Val(lblDis.Text) / Val(lblDis2.Text)
+
+        End If
+
+
+    End Sub
+
+    Private Sub btnCE_Click(sender As Object, e As EventArgs) Handles btnCE.Click
+        lblDis.Text = ""
+        lblDis2.Text = ""
+    End Sub
+
+    Private Sub txtTel_TextChanged(sender As Object, e As EventArgs) Handles txtTel.TextChanged
+
+
+    End Sub
+
+    Private Sub btnBS_Click(sender As Object, e As EventArgs) Handles btnBS.Click
+        If (lblDis2.Text.Length > 0) Then
+            lblDis2.Text = lblDis2.Text.Remove(lblDis2.Text.Length - 1, 1)
+        End If
+
+
+
+    End Sub
+
+    Private Sub NumberClick(sender As Object, e As EventArgs) Handles btnDot.Click, btn0.Click, btn9.Click, btn8.Click, btn7.Click, btn6.Click, btn5.Click, btn4.Click, btn3.Click, btn2.Click, btn1.Click
+        Dim b As Button = sender
+
+        If (b.Text = “.”) Then
+            If Not lblDis2.Text.Contains(“.”) Then
+                lblDis2.Text = lblDis2.Text + b.Text
+            End If
+        Else
+            lblDis2.Text = lblDis2.Text + b.Text
+        End If
+
+    End Sub
+
+    Private Sub lblDis2_Click(sender As Object, e As EventArgs) Handles lblDis2.Click
+
+    End Sub
+
+    Private Sub opsClick(sender As Object, e As EventArgs) Handles btnMulti.Click, btnDiv.Click, btnSub.Click, btnAdd.Click
+        Dim b As Button = sender
+
+        If (lblDis2.Text <> 0) Then
+            lblDis.Text = lblDis2.Text
+            lblDis2.Text = “”
+            op = b.Text
+        End If
+
+    End Sub
+
+    Private Sub btnC_Click(sender As Object, e As EventArgs) Handles btnC.Click
+        lblDis.Text = ""
+        lblDis2.Text = ""
+    End Sub
+
+    Private Sub btnPM_Click(sender As Object, e As EventArgs) Handles btnPM.Click
+        If (lblDis2.Text.Contains("-")) Then
+            lblDis2.Text = lblDis2.Text.Remove(0, 1)
+        Else
+            lblDis2.Text = "-" + lblDis2.Text
+        End If
+
+    End Sub
+
+    Private Sub btnCalculatePrice_Click(sender As Object, e As EventArgs) Handles btnCalculatePrice.Click
+        Dim cPrice As Double
+        Dim ItemPrice As Double
+        Dim ItemCost As Double
+        Dim ItemLengthC As Double
+        Dim ItemLengthF As Double
+        Dim ItemLengthB As Double
+        Dim ItemDelivery As Double
+        Dim ItemMileage As Double
+        Dim AmountCostC As Double
+        Dim AmountCostF As Double
+        Dim AmountCostB As Double
+        Dim AmountCostT As Double
+        Dim iDelivery As Double
+        Dim TotalMileage As Double
+        Dim cTax As Double
+
+
+        If chkTel.Checked = True Then
+            cPrice = TelevisionPrice
+        End If
+        If chkMix.Checked = True Then
+            ItemPrice = MixerPrice
+        End If
+        If chkCam.Checked = True Then
+            ItemCost = CameraPrice
+        End If
+
+        If IsNumeric(txtTel.Text) Then
+            ItemLengthC = Val(txtTel.Text)
+            AmountCostF = cPrice * ItemLengthC
+            AmountCostC = AmountCostF + AmountCostB + AmountCostT
+        End If
+        If IsNumeric(txtMix.Text) Then
+            ItemLengthF = Val(txtMix.Text)
+            AmountCostB = ItemPrice * ItemLengthF
+            AmountCostC = AmountCostF + AmountCostB + AmountCostT
+        End If
+        If IsNumeric(txtCam.Text) Then
+            ItemLengthB = Val(txtCam.Text)
+            AmountCostT = ItemCost * ItemLengthB
+            AmountCostC = AmountCostF + AmountCostB + AmountCostT
+        End If
+
+        If chkTel.Checked = True Then
+        ElseIf chkMix.Checked = True Then
+        ElseIf chkCam.Checked = True Then
+        Else : MsgBox(“Select an Items”, MsgBoxStyle.Information + MsgBoxStyle.OkOnly, “opps”)
+        End If
+
+        If IsNumeric(txtHD.Text) Then
+            ItemDelivery = Val(txtHD.Text)
+            iDelivery = DeliveryPrice * ItemDelivery
+        Else
+            MsgBox("Please Enter Required Hours of Labour”, MsgBoxStyle.Information + MsgBoxStyle.OkOnly, “opps”)
+            txtHD.Focus()
+        End If
+
+        If IsNumeric(txtMileage.Text) Then
+            ItemMileage = Val(txtMileage.Text)
+            TotalMileage = MileageRate * ItemMileage
+        Else
+            MsgBox(“Please Enter Required Miles of Travel”, MsgBoxStyle.Information + MsgBoxStyle.OkOnly, “opps”)
+            txtMileage.Focus()
+        End If
+
+        If chkTax.Checked = True Then
+            cTax = TaxRate * (AmountCostC)  ' Call a Function Procedure
+        End If
+
+        mcSubTotal = AmountCostC + iDelivery + TotalMileage
+        mcTotal = mcSubTotal + cTax
+        txtTCOI.Text = FormatCurrency$(AmountCostC + cTax)
+        txtTCOD.Text = FormatCurrency$(iDelivery)
+        txtTCOM.Text = FormatCurrency$(TotalMileage)
+        txtSubTotal.Text = FormatCurrency$(mcSubTotal)
+        txtTax.Text = FormatCurrency$(cTax)
+        txtTotalAmount.Text = FormatCurrency$(mcTotal)
+
+        'For my receipt
+        Dim Hours As String
+        Dim Miles As String
+        Dim Television As Double
+        Dim Mixer As Double
+        Dim Camera As Double
+        Dim Name(10) As String
+        Dim x As Integer
+        Dim ItemNumber(10) As String
+
+        'Receipt Calculation
+        txtReceipt.AppendText(“  “ + vbNewLine)
+        Name(1) = txtTel.Text
+        Name(2) = txtMix.Text
+        Name(3) = txtCam.Text
+        Name(4) = txtHD.Text
+        Name(5) = txtMileage.Text
+        '------------------------------------------------------------
+        Television = Val(txtTel.Text) * cPrice
+        Mixer = Val(txtMix.Text) * ItemPrice
+        Camera = Val(txtCam.Text) * ItemCost
+        Hours = Val(txtHD.Text) * DeliveryPrice
+        Miles = Val(txtMileage.Text) * MileageRate
+        '-------------------------------------------------------------
+
+        'Receipt Print
+
+        txtReceipt.AppendText(“  “ + vbNewLine)
+        txtReceipt.AppendText(“  THANK YOU FOR SHOPPING WITH US” + vbNewLine)
+        txtReceipt.AppendText(“ =============================” + vbNewLine)
+        txtReceipt.AppendText(“  Welcome to JBarimah Enterprise: Home of Quality Electronics.” + vbNewLine)
+        txtReceipt.AppendText(“ =============================” + vbNewLine)
+        txtReceipt.AppendText(“  “ + vbNewLine)
+        'Loop
+        For x = 1 To 1
+            txtReceipt.AppendText(vbTab & "Television QTY: " + ItemNumber(x) + Name(x) + vbTab + vbNewLine)
+        Next x
+        For x = 2 To 2
+            txtReceipt.AppendText(vbTab & "Mixer QTY: " + ItemNumber(x) + Name(x) + vbTab + vbNewLine)
+        Next x
+        For x = 3 To 3
+            txtReceipt.AppendText(vbTab & "Camera QTY: " + ItemNumber(x) + Name(x) + vbTab + vbNewLine)
+        Next x
+        For x = 4 To 4
+            txtReceipt.AppendText(vbTab & "Home Delivery: " + ItemNumber(x) + Name(x) + vbTab + vbNewLine)
+        Next x
+        For x = 5 To 5
+            txtReceipt.AppendText(vbTab & "Mileage: " + ItemNumber(x) + Name(x) + vbTab + vbNewLine)
+        Next x
+
+
+        'Print
+        txtReceipt.AppendText(“ “ + vbNewLine)
+        txtReceipt.AppendText(vbTab & “SubTotal: “ + txtSubTotal.Text + vbNewLine)
+        txtReceipt.AppendText(vbTab & “Tax: “ + txtTax.Text + vbNewLine)
+        txtReceipt.AppendText(vbTab & “Total Amount: “ + txtTotalAmount.Text + vbNewLine)
+        txtReceipt.AppendText(vbTab & vbNewLine)
+        txtReceipt.AppendText(“=============================” + vbNewLine)
+        ' txtReceipt.AppendText (txtNotes.Text + vbNewLine)
+        txtReceipt.AppendText(“=============================  “ + vbNewLine)
+        txtReceipt.AppendText(“  “ + vbNewLine)
+        txtReceipt.AppendText(vbTab & Today & vbTab & TimeOfDay + vbNewLine)
+        txtReceipt.AppendText(“=============================  “ + vbNewLine)
+        txtReceipt.AppendText(“THANK YOU FOR SHOPPING WITH US  “ + vbNewLine)
+        txtReceipt.AppendText(“=============================  “ + vbNewLine)
+
+
+
+
+    End Sub
+
+    Private Sub txtTel_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtTel.KeyPress
+        If Char.IsDigit(e.KeyChar) = False And Char.IsControl(e.KeyChar) = False Then
+            e.Handled = True
+            MsgBox(“Please Enter A Valid Number ”)
+        End If
+
+
+    End Sub
+
+    Private Sub txtMix_TextChanged(sender As Object, e As EventArgs) Handles txtMix.TextChanged
+
+    End Sub
+
+    Private Sub txtMix_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtMix.KeyPress
+        If Char.IsDigit(e.KeyChar) = False And Char.IsControl(e.KeyChar) = False Then
+            e.Handled = True
+            MsgBox(“Please Enter A Valid Number ”)
+        End If
+
+
+    End Sub
+
+    Private Sub txtCam_TextChanged(sender As Object, e As EventArgs) Handles txtCam.TextChanged
+
+    End Sub
+
+    Private Sub txtCam_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtCam.KeyPress
+        If Char.IsDigit(e.KeyChar) = False And Char.IsControl(e.KeyChar) = False Then
+            e.Handled = True
+            MsgBox(“Please Enter A Valid Number ”)
+        End If
+
+
+    End Sub
+
+    Private Sub txtHD_TextChanged(sender As Object, e As EventArgs) Handles txtHD.TextChanged
+
+    End Sub
+
+    Private Sub txtHD_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtHD.KeyPress
+        If Char.IsDigit(e.KeyChar) = False And Char.IsControl(e.KeyChar) = False Then
+            e.Handled = True
+            MsgBox(“Please Enter A Valid Number ”)
+        End If
+
+
+    End Sub
+
+    Private Sub txtMileage_TextChanged(sender As Object, e As EventArgs) Handles txtMileage.TextChanged
+
+    End Sub
+
+    Private Sub txtMileage_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtMileage.KeyPress
+        If Char.IsDigit(e.KeyChar) = False And Char.IsControl(e.KeyChar) = False Then
+            e.Handled = True
+            MsgBox(“Please Enter A Valid Number ”)
+        End If
+
+
+    End Sub
+
+    Private Sub txtReceipt_TextChanged(sender As Object, e As EventArgs) Handles txtReceipt.TextChanged
+
+    End Sub
+End Class
